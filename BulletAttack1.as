@@ -7,7 +7,12 @@ package bullets
 		}
 		
 		override public function spawn():void {
-			add(new Spawner(this, track.scr_w/2, track.scr_h/2));
+			var spawner:Enemy = add(new Enemy(this, track.scr_w/2, track.scr_h/2)) as Enemy;
+			
+			spawner.repeat(18, function():void {
+				add(new Leaf(spawner.host, spawner.x, spawner.y, spawner.torad(track.frame)));
+			});
+			spawner.clear_images();
 		}
 	}
 	
