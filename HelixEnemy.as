@@ -45,11 +45,11 @@ package bullets
 				});
 			}
 			
-			var fadeout:Function = function():void {
+			function fadeout():void {
 				when(oob, function():void {
 					delay(100, function():void {
 						die();
-						host.add(new Enemy(host, x, -60));
+						duplicate(x, -60);
 					});
 				});
 			}
