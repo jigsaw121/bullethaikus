@@ -56,6 +56,15 @@ package bullets
 						delay(50, b.oobscript.add);
 						b.dir(0.5+(i%5)*0.1);
 
+						b.delay(100, function():void {
+							// 'this' will refer to the calling script because of closure scope
+							// so it's safe to do casts like this, weird as they might look
+							(this as Script).target.always(function():void {
+								(this as Script).target.dx *= 1.03;
+								(this as Script).target.dy *= 1.03;
+							});
+						});
+						
 						spin.splice(0, 1);
 						i++;
 					}
