@@ -45,7 +45,7 @@ package bullets
 			width = 4; height = 4;
 		}
 		override public function imginit():void {
-			add_rectimg(width,height,0xD080C0);
+			add_rectimg(width,height,0xE040D0);
 		}
 	}
 	
