@@ -3,30 +3,24 @@ package bullets
 	public class BulletAttack3 extends BulletArena
 	{
 		public function BulletAttack3() {
-			track.report("003");
+			track.report("003 UNRAVELING THE KNOT");
 		}
 		
 		override public function spawn():void {
-			//var orb:Orbiter = add(new Orbiter(this, track.scr_w/2, track.scr_h/2, 32, 12, null)) as Orbiter;
-			var mid:Enemy = add(new Enemy(this, track.scr_w/2, track.scr_h/2)) as Enemy;
-			mid.clear_images();
-			
 			var orbits:Array = [];
-			
-			orbits.push(add(new Orbiter(this, track.scr_w/2, track.scr_h/2, 48, 18, mid)));
-			//add(new Orbiter(this, track.scr_w/2, track.scr_h/2, 64, 6, mid));
-			//add(new Orbiter(this, track.scr_w/2, track.scr_h/2, 80, 3, mid));
+			orbits.push(add(new Orbiter(this, track.scr_w/2, track.scr_h/2, 48, 18)));
+			var mid:Orbiter = orbits[0] as Orbiter;
 			
 			var spinner:Orbiter;
+
 			var spin:Array = [];
 			var color:int;
 			for (var i:int = 0; i < 6; i++) 
 			{
 				color = i%2 ? 0x40A040 : 0xF04040;
-				spin.push(add(new Orbiter(this, track.scr_w/2, track.scr_h/2, 48, 10, null, color)) as Orbiter);
+				spin.push(add(new Orbiter(this, track.scr_w/2, track.scr_h/2, 48, 10, color)) as Orbiter);
 				spinner = spin[spin.length-1] as Orbiter;
 				spinner.angle = (2*Math.PI)/6*i;
-				spinner.target = spinner;
 				orbits.push(spinner);
 			}
 			
