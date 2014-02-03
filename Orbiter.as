@@ -45,13 +45,15 @@ package bullets
 			
 			explode = function():void { 
 				borbit.remove();
+				for each (var b:Bullet in spin) {
+					b.aim(target);
+				}
 
 				delay(250, function():void {
 					i = 0;
 					while (spin.length) {
 						b = spin[0] as Bullet;
 						delay(50, b.oobscript.add);
-						b.aim(target);
 						b.dir(0.5+(i%5)*0.1);
 
 						spin.splice(0, 1);
