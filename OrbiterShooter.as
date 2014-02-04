@@ -21,35 +21,62 @@ package bullets
 			});
 		
 			var charge:Script = repeat(2, function():void {
-				if (spin.length == dens) {
+				if (spin.length >= dens) {
 					charge.remove();
-					delay(40, deploy.add);
 					return;
 				}
-				spin.push(spawn((2*Math.PI)/dens*spin.length-angle));
-				spin[spin.length-1].oobscript.remove();
+				spin.push(spawn((2*Math.PI)/(dens+1)*spin.length-angle));
+				b = spin[spin.length - 1];
+				b.oobscript.remove();
+				b.defcolor = color;
+				b.defblend = "normal";
+				b.defalpha = 0.2;
 			});
+			charge.remove();
 			
-			var deploy:Script = repeat(40, function():void {
+			var deploy:Script = repeat(30, function():void {
 				var tgt:OrbiterCatcher = target as OrbiterCatcher;
 			
-				if (/*!tgt.catching()*/ tgt.spin.length>=tgt.dens || spin.length==0) {
+				if (spin.length == 0) {
 					deploy.remove();
 					return;
 				}
+				if (/*!tgt.catching()*/ tgt.spin.length>=tgt.dens) {
+					return;
+				}
 				
-				spin[spin.length-1].aim(target);
-				spin[spin.length-1].dir(2.5);
+				b = spin[spin.length - 1];
+				b.aim(target);
+				b.dir(2.5);
+				delay(50, b.oobscript.add);
 				spin.splice(spin.length-1, 1);
 			});
 			deploy.remove();
 			
-			delay(40, function():void {
+			var startcharge:ScriptDelay = delay(80, charge.add);
+			startcharge.remove();
+			var startdeploy:ScriptDelay = delay(80, deploy.add);
+			startdeploy.remove();
+			
+			delay(5, function():void {
 				var tgt:OrbiterCatcher = target as OrbiterCatcher;
 			
 				whenever(function():Boolean { 
-					return tgt.spin.length == 0 && !has_script(charge) 
-				}, charge.add);
+					return tgt.spin.length == 0 && spin.length>=dens;
+				}, function():void {
+					if (has_script(startdeploy) || has_script(deploy)) return;
+					host.track.announce("feed");
+					startdeploy.delay = 80;
+					startdeploy.add();
+				});
+				whenever(function():Boolean { 
+					return spin.length == 0 && tgt.spin.length==0;
+				}, function():void {
+					if (has_script(startcharge) || has_script(charge)) return;
+					host.track.announce("charge");
+					startcharge.delay = 80;
+					startcharge.add();
+				});
 			});
 		}
 	}

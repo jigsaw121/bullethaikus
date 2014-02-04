@@ -11,41 +11,52 @@ package bullets
 		override public function scriptinit():void {
 			var b:Bullet;
 			
+			var bosp:Number = 0.003;
 			var borbit:Script = always(function():void {
 				for (var i:int = 0; i < spin.length; i++) {
 					b = spin[i] as Bullet;
 					b.x = orbitx(b.angle, range);
 					b.y = orbity(b.angle, range);
-					b.angle += 0.003;
+					b.angle += bosp;
 				}
 			});
 			
-			var deploy:ScriptPeriodic = repeat(5, function():void {
+			var deploy:ScriptPeriodic = repeat(4, function():void {
 				catchsc.add();
 				if (spin.length == 0) {
 					deploy.remove();
 					return;
 				}
+				//bosp += 0.001;
 								
 				b = spin[0] as Bullet;
-				b.angle += Math.PI/2;
+				b.angle -= Math.PI/2;
+				b.adjust_angle(b.img);
 				b.dir(2.0);
 				spin.splice(0, 1);
+				b.oobscript.add();
 			});
 			deploy.remove();
 			
+			var startdeploy:ScriptDelay = delay(150, deploy.add);
+			startdeploy.remove();
+			var j:int = 0;
 			catchsc = always(function():void {
 				if (spin.length >= dens) {
+					if (has_script(startdeploy) || has_script(deploy)) return;
 					catchsc.remove();
-					delay(150, deploy.add);
+					startdeploy.delay = 150;
+					startdeploy.add();
+					host.track.announce("deploy");
 					return;
 				}
 				
 				b = collide("bullet", x, y) as Bullet;
 				if (b) {
 					b.die();
-					spin.push(spawn(360/dens*spin.length));
+					spin.push(spawn((180/(dens+1))*j));
 					spin[spin.length-1].oobscript.remove();
+					j++;
 				}
 			});
 		}

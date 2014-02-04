@@ -4,6 +4,7 @@ package bullets
 	{
 		public function BulletAttack4() {
 			track.report("004 PERPETUAL MOTION MACHINE");
+			player.x -= 24; player.y += 16;
 		}
 		
 		override public function spawn():void {
