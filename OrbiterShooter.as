@@ -26,23 +26,31 @@ package bullets
 					delay(40, deploy.add);
 					return;
 				}
-				spin.push(spawn(360/dens*spin.length));
+				spin.push(spawn((2*Math.PI)/dens*spin.length-angle));
 				spin[spin.length-1].oobscript.remove();
 			});
 			
 			var deploy:Script = repeat(40, function():void {
 				var tgt:OrbiterCatcher = target as OrbiterCatcher;
-				if (!tgt.catching() || spin.length == 0) {
+			
+				if (/*!tgt.catching()*/ tgt.spin.length>=tgt.dens || spin.length==0) {
 					deploy.remove();
-					delay(40, charge.add);
 					return;
 				}
-				spin[0].aim(target);
-				spin[0].dir(1.5);
-				spin.splice(0, 1);
+				
+				spin[spin.length-1].aim(target);
+				spin[spin.length-1].dir(2.5);
+				spin.splice(spin.length-1, 1);
 			});
 			deploy.remove();
 			
+			delay(40, function():void {
+				var tgt:OrbiterCatcher = target as OrbiterCatcher;
+			
+				whenever(function():Boolean { 
+					return tgt.spin.length == 0 && !has_script(charge) 
+				}, charge.add);
+			});
 		}
 	}
 	

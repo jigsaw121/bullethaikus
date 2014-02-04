@@ -21,9 +21,9 @@ package bullets
 			});
 			
 			var deploy:ScriptPeriodic = repeat(5, function():void {
+				catchsc.add();
 				if (spin.length == 0) {
 					deploy.remove();
-					delay(40, catchsc.add);
 					return;
 				}
 								
@@ -41,14 +41,11 @@ package bullets
 					return;
 				}
 				
-				var catchy:Array = []
-				host.getType("bullet", catchy);
-				for each (b in catchy) {
-					if (distanceFrom(b) <= 40) {
-						b.die();
-						spin.push(spawn(360/dens*spin.length));
-						spin[spin.length-1].oobscript.remove();
-					}
+				b = collide("bullet", x, y) as Bullet;
+				if (b) {
+					b.die();
+					spin.push(spawn(360/dens*spin.length));
+					spin[spin.length-1].oobscript.remove();
 				}
 			});
 		}
