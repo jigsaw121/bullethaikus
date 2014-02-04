@@ -16,7 +16,7 @@ package bullets
 					b = spin[i] as Bullet;
 					b.x = orbitx(b.angle, range);
 					b.y = orbity(b.angle, range);
-					//b.angle += 0.003;
+					b.angle += 0.02;
 				}
 			});
 		
@@ -47,13 +47,13 @@ package bullets
 				
 				b = spin[spin.length - 1];
 				b.aim(target);
-				b.dir(2.5);
+				b.dir(2.8);
 				delay(50, b.oobscript.add);
 				spin.splice(spin.length-1, 1);
 			});
 			deploy.remove();
 			
-			var startcharge:ScriptDelay = delay(80, charge.add);
+			var startcharge:ScriptDelay = delay(120, charge.add);
 			startcharge.remove();
 			var startdeploy:ScriptDelay = delay(80, deploy.add);
 			startdeploy.remove();
@@ -74,7 +74,7 @@ package bullets
 				}, function():void {
 					if (has_script(startcharge) || has_script(charge)) return;
 					host.track.announce("charge");
-					startcharge.delay = 80;
+					startcharge.delay = 120;
 					startcharge.add();
 				});
 			});

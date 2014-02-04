@@ -11,7 +11,7 @@ package bullets
 		override public function scriptinit():void {
 			var b:Bullet;
 			
-			var bosp:Number = 0.003;
+			var bosp:Number = 0.0032;
 			var borbit:Script = always(function():void {
 				for (var i:int = 0; i < spin.length; i++) {
 					b = spin[i] as Bullet;
@@ -21,7 +21,8 @@ package bullets
 				}
 			});
 			
-			var deploy:ScriptPeriodic = repeat(4, function():void {
+			var bsp:Number = 0.0001;
+			var deploy:ScriptPeriodic = repeat(3, function():void {
 				catchsc.add();
 				if (spin.length == 0) {
 					deploy.remove();
@@ -32,9 +33,11 @@ package bullets
 				b = spin[0] as Bullet;
 				b.angle -= Math.PI/2;
 				b.adjust_angle(b.img);
-				b.dir(2.0);
-				spin.splice(0, 1);
+				b.dir(bsp);
 				b.oobscript.add();
+				bsp *= 1.01;
+			
+				spin.splice(0, 1);
 			});
 			deploy.remove();
 			
@@ -47,6 +50,7 @@ package bullets
 					catchsc.remove();
 					startdeploy.delay = 150;
 					startdeploy.add();
+					bsp = 1.5;
 					host.track.announce("deploy");
 					return;
 				}

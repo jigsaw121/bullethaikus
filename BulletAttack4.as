@@ -4,7 +4,7 @@ package bullets
 	{
 		public function BulletAttack4() {
 			track.report("004 PERPETUAL MOTION MACHINE");
-			player.x -= 24; player.y += 16;
+			player.y += 16;
 		}
 		
 		override public function spawn():void {
@@ -33,7 +33,7 @@ package bullets
 					spinner = spin[i] as Orbiter;
 					spinner.x = mid.orbitx(spinner.angle, dist);
 					spinner.y = mid.orbity(spinner.angle, dist);
-					spinner.angle -= 0.002;
+					spinner.angle -= 0.0025;
 				}
 			});
 		}
