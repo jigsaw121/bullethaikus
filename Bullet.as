@@ -33,6 +33,13 @@ package bullets
 			});
 		}
 		
+		public function color_img(_color:int, _alpha:Number):void {
+			// a quick way for hosts to change the color
+			defcolor = _color;
+			defblend = "normal";
+			defalpha = _alpha;
+		}
+		
 		override public function scriptinit():void {
 			always(movex); always(movey);
 			
