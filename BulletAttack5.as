@@ -3,7 +3,7 @@ package bullets
 	public class BulletAttack5 extends BulletArena
 	{
 		public function BulletAttack5() {
-			track.report("005");
+			track.report("005 POISON DELAY");
 		}
 		
 		override public function spawn():void {
