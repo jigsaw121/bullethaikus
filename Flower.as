@@ -7,8 +7,7 @@ package bullets
 		}
 		
 		override public function scriptinit():void {
-			var b:Bullet; 
-			var radfr:Number;
+			var b:Bullet; var radfr:Number;
 			repeat(0, function():void {
 				radfr = torad(host.track.frame);
 				b = spawn(radfr+Math.sin(radfr*2.8)*Math.PI*2);

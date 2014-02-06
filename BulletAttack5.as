@@ -11,7 +11,7 @@ package bullets
 		}
 		
 		override public function next():BulletArena {
-			return new BulletAttack5();
+			return new BulletAttack6();
 		}
 	}
 	
