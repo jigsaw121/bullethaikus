@@ -26,6 +26,7 @@ package bullets
 				}
 			});
 			oncollision("bullet", function(hit:Gentity):void {
+				if ((hit as Bullet).life < 38) return;
 				hit.die();
 			});
 			repeat(240, function():void {

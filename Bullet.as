@@ -8,6 +8,7 @@ package bullets
 		public var defcolor:int;
 		public var defblend:String;
 		public var defalpha:Number;
+		public var life:int = 0;
 		
 		// in case some other entity wants to remove this script
 		public var oobscript:ScriptTrigger;
@@ -42,6 +43,9 @@ package bullets
 		
 		override public function scriptinit():void {
 			always(movex); always(movey);
+			always(function():void {
+				life++;
+			});
 			
 			// only the visibly spawned ones will threaten the player
 			oobscript = when(oob, die);
