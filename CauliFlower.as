@@ -30,17 +30,17 @@ package bullets
 			});
 			repeat(240, function():void {
 				for (i = 0; i < 360; i += 6) {
-					b = spawn(torad(i));
-					b.dir(1);//+Math.sin(torad(i*6))*0.5
+					b = spawn(j+torad(i));
+					b.dir(1+Math.sin(torad(i*6))*0.5);
 					b.color_img(0xF08080, 0.4);
 				}
 				for (i = 0; i < 360; i += 6) {
-					b = spawn(torad(30+i));
-					b.dir(1.5);//+Math.sin(torad(30+i*6))*0.5
+					b = spawn(j+torad(30+i));
+					b.dir(1.5+Math.sin(torad(30+i*6))*0.5);
 					b.color_img(0xF000F0, 0.4);
 				}
 				
-				//j -= Math.PI/4;
+				j -= Math.PI/3.0;
 			});
 			delay(50, function():void {
 				repeat(240, function():void {
