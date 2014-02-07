@@ -9,3 +9,4 @@ this is my poetry
 004 [PERPETUAL MOTION MACHINE](https://dl.dropboxusercontent.com/u/75065952/bullethaiku4.swf)  
 005 [POISON DELAY](https://dl.dropboxusercontent.com/u/75065952/bullethaiku5.swf)  
 006 [DANCE OF THE MEDUSA](https://dl.dropboxusercontent.com/u/75065952/bullethaiku6.swf)  
+007 [ECOSYSTEM BALANCE](https://dl.dropboxusercontent.com/u/75065952/bullethaiku7.swf)  
