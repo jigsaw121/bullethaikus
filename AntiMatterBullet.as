@@ -20,7 +20,7 @@ package bullets
 			// only the visibly spawned ones will threaten the player
 			oobscript = when(oob, die);
 			
-			oncollision("bullet", function(hit:Gentity) {
+			oncollision("bullet", function(hit:Gentity):void {
 				hit.die()
 				die();
 			})
